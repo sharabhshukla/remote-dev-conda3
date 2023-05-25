@@ -1,29 +1,13 @@
-from __future__ import division
 import pyomo.environ as pyo
+from pyomo.environ import SolverFactory
 
-model = pyo.AbstractModel()
+model = pyo.ConcreteModel()
 
-model.m = pyo.Param(within=pyo.NonNegativeIntegers)
-model.n = pyo.Param(within=pyo.NonNegativeIntegers)
+model.x = pyo.Var([1,2], domain=pyo.NonNegativeReals)
 
-model.I = pyo.RangeSet(1, model.m)
-model.J = pyo.RangeSet(1, model.n)
+model.OBJ = pyo.Objective(expr = 2*model.x[1] + 3*model.x[2])
 
-model.a = pyo.Param(model.I, model.J)
-model.b = pyo.Param(model.I)
-model.c = pyo.Param(model.J)
+model.Constraint1 = pyo.Constraint(expr = 3*model.x[1] + 4*model.x[2] >= 1)
 
-# the next line declares a variable indexed by the set J
-model.x = pyo.Var(model.J, domain=pyo.NonNegativeReals)
-
-def obj_expression(m):
-    return pyo.summation(m.c, m.x)
-
-model.OBJ = pyo.Objective(rule=obj_expression)
-
-def ax_constraint_rule(m, i):
-    # return the expression for the constraint for i
-    return sum(m.a[i,j] * m.x[j] for j in m.J) >= m.b[i]
-
-# the next line creates one constraint for each member of the set model.I
-model.AxbConstraint = pyo.Constraint(model.I, rule=ax_constraint_rule)
+solver = SolverFactory('appsi_highs')
+results = solver.solve(model, tee=True)
