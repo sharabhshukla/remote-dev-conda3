@@ -1,5 +1,0 @@
-name: optenv
-channels:
-  - conda-forge
-dependencies:
-  - pyscipopt=4.3.0
