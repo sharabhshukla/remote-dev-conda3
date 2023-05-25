@@ -8,7 +8,7 @@ RUN conda install -y python=3.9
      
 RUN conda install -c conda-forge pyscipopt==4.3.0 -y
 
-COPY requirements.txt app/requirements.txt
+COPY .devcontainer/requirements.txt app/requirements.txt
 RUN pip install -r app/requirements.txt
 
 # [Optional] Uncomment this section to install additional OS packages.
