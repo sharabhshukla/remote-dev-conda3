@@ -4,9 +4,7 @@ FROM mcr.microsoft.com/devcontainers/miniconda:0-3
 # copy "noop.txt" so the COPY instruction does not fail if no environment.yml exists.
 
 # [Optional] Uncomment to install a different version of Python than the default
-RUN conda install -y python=3.9 \
-     && pip install --no-cache-dir pipx \
-     && pipx reinstall-all
+RUN conda install -y python=3.9
      
 RUN conda install -c conda-forge pyscipopt -y
 
