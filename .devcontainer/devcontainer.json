@@ -11,7 +11,7 @@
 			"addCondaForge": true,
 			"version": "latest"
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -19,8 +19,8 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
-	Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python --version",
+	//Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "conda activate optenv && pip install -r requirements.txt",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
